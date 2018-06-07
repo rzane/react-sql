@@ -24,6 +24,7 @@ const Provider = ({ store, children }) => (
 
 Provider.propTypes = {
   store: PropTypes.shape({
+    execute: PropTypes.func.isRequired,
     query: PropTypes.func.isRequired,
     mutate: PropTypes.func.isRequired,
     subscribe: PropTypes.func.isRequired

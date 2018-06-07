@@ -1,25 +1,32 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createStore, Provider, Query, Mutation } from "../src";
+import "./index.css";
 
 const store = createStore();
-store.execute("CREATE TABLE counter ([value] number)");
+store.execute("CREATE TABLE counter (current number)");
 store.execute("INSERT INTO counter VALUES (0)");
 
-const App = () => (
+const Counter = () => (
   <Provider store={store}>
-    <Mutation sql="UPDATE counter SET [value] = [value] - 10">
-      {decrement => <button onClick={decrement}>-</button>}
-    </Mutation>
+    <div className="Counter">
+      <h2>Counter</h2>
 
-    <Query sql="SELECT VALUE [value] FROM counter">
-      {query => JSON.stringify(query.data)}
-    </Query>
+      <Query sql="SELECT VALUE current FROM counter">
+        {query => <h1>{query.data}</h1>}
+      </Query>
 
-    <Mutation sql="UPDATE counter SET [value] = [value] + 10">
-      {increment => <button onClick={increment}>+</button>}
-    </Mutation>
+      <div className="actions">
+        <Mutation sql="UPDATE counter SET current = current - 1">
+          {decrement => <button onClick={decrement}>-</button>}
+        </Mutation>
+
+        <Mutation sql="UPDATE counter SET current = current + 1">
+          {increment => <button onClick={increment}>+</button>}
+        </Mutation>
+      </div>
+    </div>
   </Provider>
 );
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<Counter />, document.getElementById("root"));

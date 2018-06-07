@@ -1,7 +1,9 @@
 import alasql from "alasql";
 import { EventEmitter } from "events";
 
-const createStore = ({ name = "store" } = {}) => {
+const isFunction = value => typeof value === "function";
+
+const createStore = () => {
   const db = new alasql.Database(name);
   const events = new EventEmitter();
 
@@ -24,9 +26,9 @@ const createStore = ({ name = "store" } = {}) => {
   };
 
   return {
+    execute: query,
     query,
     mutate,
-    execute: query,
     subscribe
   };
 };

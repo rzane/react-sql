@@ -1,0 +1,27 @@
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.Counter {
+  margin-top: 5rem;
+  text-align: center;
+}
+
+.Counter button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+}
+
+.Counter button:nth-child(1) {
+  background-color: #dc3545;
+}
+
+.Counter button:nth-child(2) {
+  background-color: #007bff;
+}

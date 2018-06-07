@@ -4,15 +4,10 @@ import { connect } from "./Provider";
 
 class Mutation extends Component {
   static propTypes = {
-    sql: PropTypes.string.isRequired,
-    params: PropTypes.array.isRequired
+    sql: PropTypes.string.isRequired
   };
 
-  static defaultProps = {
-    params: []
-  };
-
-  handleMutate = (params = this.props.params) => {
+  handleMutate = params => {
     this.props.store.mutate(this.props.sql, params);
   };
 
