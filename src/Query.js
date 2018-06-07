@@ -32,9 +32,10 @@ class Query extends Component {
     }
   }
 
-  executeQuery = () => {
+  executeQuery = async () => {
+    this.setState({ loading: true });
     const { store, sql, params } = this.props;
-    const data = store.query(sql, params);
+    const data = await store.query(sql, params);
     this.setState({ data, loading: false });
   };
 
