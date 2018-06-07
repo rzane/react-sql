@@ -1,15 +1,15 @@
 import alasql from "alasql";
 import { EventEmitter } from "events";
 
-export const createStore = name => {
+const createStore = ({ name = "store" } = {}) => {
   const db = new alasql.Database(name);
   const events = new EventEmitter();
 
   const subscribe = callback => {
-    events.on("mutate", callback);
+    events.addListener("mutate", callback);
 
     return () => {
-      events.off("mutate", callback);
+      events.removeListener("mutate", callback);
     };
   };
 
@@ -30,3 +30,5 @@ export const createStore = name => {
     subscribe
   };
 };
+
+export default createStore;

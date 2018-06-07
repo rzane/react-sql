@@ -1,8 +1,19 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "./Provider";
 
 class Query extends Component {
+  static propTypes = {
+    sql: PropTypes.string.isRequired,
+    params: PropTypes.array.isRequired
+  };
+
+  static defaultProps = {
+    params: []
+  };
+
   state = {
+    loading: true,
     data: null
   };
 
@@ -24,7 +35,7 @@ class Query extends Component {
   executeQuery = () => {
     const { store, sql, params } = this.props;
     const data = store.query(sql, params);
-    this.setState({ data });
+    this.setState({ data, loading: false });
   };
 
   render() {

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 const Context = React.createContext("resql");
 
@@ -17,13 +18,16 @@ export const connect = WrappedComponent => {
   return Enhanced;
 };
 
-export default class Provider extends Component {
-  render() {
-    return (
-      <Context.Provider
-        value={this.props.store}
-        children={this.props.children}
-      />
-    );
-  }
-}
+const Provider = ({ store, children }) => (
+  <Context.Provider value={store} children={children} />
+);
+
+Provider.propTypes = {
+  store: PropTypes.shape({
+    query: PropTypes.func.isRequired,
+    mutate: PropTypes.func.isRequired,
+    subscribe: PropTypes.func.isRequired
+  })
+};
+
+export default Provider;
