@@ -64,3 +64,7 @@ button.negative {
 .TodoList li input[type="checkbox"] {
   margin-right: 15px;
 }
+
+.TodoList li a {
+  float: right;
+}

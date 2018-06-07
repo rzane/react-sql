@@ -7,21 +7,52 @@ import TodoList from "./components/TodoList";
 import "./index.css";
 
 const store = createStore();
-const storage = ""; // or localStorage
 
-const prepare = `
-CREATE ${storage} DATABASE IF NOT EXISTS example;
--- ATTACH ${storage} DATABASE example;
-CREATE TABLE IF NOT EXISTS example.counter (current NUMBER);
-INSERT INTO example.counter VALUES (0);
+// const storage = "INDEXEDDB";
+// const storage = "localStorage";
+const storage = null;
+
+const schema = `
+CREATE TABLE IF NOT EXISTS example.counter (
+  current NUMBER
+);
 
 CREATE TABLE IF NOT EXISTS example.todos (
   id INT NON NULL PRIMARY KEY AUTO_INCREMENT,
   task STRING NON NULL,
   done BOOLEAN DEFAULT false
 );
-INSERT INTO example.todos (task) VALUES ("Take out the trash");
 `;
+
+const createDatabase = () => {
+  if (!storage) {
+    return store.execute(`CREATE DATABASE example;`);
+  }
+
+  return store.execute(`
+    CREATE ${storage} DATABASE IF NOT EXISTS example;
+    ATTACH ${storage} DATABASE example;
+  `);
+};
+
+const createSchema = () => {
+  return store.execute(schema);
+};
+
+const seed = async () => {
+  const [counter, todos] = await Promise.all([
+    store.execute("SELECT VALUE COUNT(*) FROM example.counter"),
+    store.execute("SELECT VALUE COUNT(*) FROM example.todos")
+  ]);
+
+  if (counter === 0) {
+    store.execute("INSERT INTO example.counter VALUES (0)");
+  }
+
+  if (todos === 0) {
+    store.execute('INSERT INTO example.todos VALUES ("Take out the trash")');
+  }
+};
 
 const render = () => {
   ReactDOM.render(
@@ -33,4 +64,7 @@ const render = () => {
   );
 };
 
-store.execute(prepare).then(render);
+createDatabase()
+  .then(createSchema)
+  .then(seed)
+  .then(render);

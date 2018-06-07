@@ -1,23 +1,5 @@
 import React, { Component } from "react";
-import { Query, Mutation } from "../../src";
-
-const Todo = ({ todo }) => (
-  <Mutation sql="UPDATE example.todos SET done = :done WHERE id = :id">
-    {update => (
-      <li>
-        <label>
-          <input
-            type="checkbox"
-            checked={todo.done}
-            onChange={() => update({ id: todo.id, done: !todo.done })}
-          />
-
-          {todo.task}
-        </label>
-      </li>
-    )}
-  </Mutation>
-);
+import { compose, query, mutation } from "../../src";
 
 class TodoList extends Component {
   state = {
@@ -25,43 +7,78 @@ class TodoList extends Component {
   };
 
   handleChange = event => {
-    this.setState({ task: event.target.value });
+    this.setState({
+      task: event.target.value
+    });
   };
 
-  handleSubmit = (event, insert) => {
+  handleSubmit = event => {
     event.preventDefault();
-    insert(this.state);
+    this.props.insertTodo(this.state);
     this.setState({ task: "" });
   };
 
+  handleUpdate = todo => {
+    this.props.updateTodo({
+      id: todo.id,
+      done: !todo.done
+    });
+  };
+
+  handleDelete = (event, todo) => {
+    event.preventDefault();
+    this.props.deleteTodo(todo.id);
+  };
+
   render() {
+    const { todos } = this.props;
+
     return (
       <div className="TodoList">
         <h1>Todo List</h1>
 
-        <Mutation sql="INSERT INTO example.todos (task) VALUES (:task)">
-          {insert => (
-            <form onSubmit={event => this.handleSubmit(event, insert)}>
-              <input
-                type="text"
-                value={this.state.task}
-                onChange={this.handleChange}
-              />
-              <button type="submit">Save</button>
-            </form>
-          )}
-        </Mutation>
+        <form onSubmit={this.handleSubmit}>
+          <input
+            type="text"
+            value={this.state.task}
+            onChange={this.handleChange}
+          />
+          <button type="submit">Save</button>
+        </form>
 
-        <Query sql="SELECT * FROM example.todos">
-          {todos => (
-            <ul>
-              {todos.data.map(todo => <Todo key={todo.id} todo={todo} />)}
-            </ul>
-          )}
-        </Query>
+        <ul>
+          {todos.data.map(todo => (
+            <li key={todo.id}>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={todo.done}
+                  onChange={() => this.handleUpdate(todo)}
+                />
+
+                <a href="#" onClick={event => this.handleDelete(event, todo)}>
+                  Delete
+                </a>
+
+                {todo.task}
+              </label>
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }
 }
 
-export default TodoList;
+const enhance = compose(
+  query("SELECT * FROM example.todos", { name: "todos" }),
+  mutation("INSERT INTO example.todos (task) VALUES (:task)", {
+    name: "insertTodo"
+  }),
+  mutation("UPDATE example.todos SET done = :done WHERE id = :id", {
+    name: "updateTodo"
+  }),
+  mutation("DELETE FROM example.todos WHERE id = ?", { name: "deleteTodo" })
+);
+
+export default enhance(TodoList);
