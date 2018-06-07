@@ -2,26 +2,65 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.Counter {
-  margin-top: 5rem;
-  text-align: center;
-}
-
-.Counter button {
+button {
   border: none;
   color: white;
+  background-color: #607d8b;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 5px;
+  cursor: pointer;
 }
 
-.Counter button:nth-child(1) {
+button.positive {
+  background-color: #007bff;
+}
+
+button.negative {
   background-color: #dc3545;
 }
 
-.Counter button:nth-child(2) {
-  background-color: #007bff;
+.Counter {
+  padding: 5rem;
+  text-align: center;
+}
+
+.Counter button {
+  margin: 5px;
+}
+
+.TodoList {
+  padding: 5rem;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.TodoList form {
+  width: 100%;
+}
+
+.TodoList form input[type="text"] {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  font-size: 16px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.TodoList ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.TodoList li {
+  padding: 15px;
+  border: 1px solid #ddd;
+  margin-bottom: 5px;
+}
+
+.TodoList li input[type="checkbox"] {
+  margin-right: 15px;
 }

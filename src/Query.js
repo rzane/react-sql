@@ -5,20 +5,19 @@ import { connect } from "./Provider";
 class Query extends Component {
   static propTypes = {
     sql: PropTypes.string.isRequired,
-    params: PropTypes.array.isRequired
+    initial: PropTypes.any.isRequired,
+    params: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired
   };
 
   static defaultProps = {
+    initial: [],
     params: []
-  };
-
-  state = {
-    loading: true,
-    data: null
   };
 
   constructor(props, context) {
     super(props, context);
+
+    this.state = { loading: true, data: props.initial };
     this._unsubscribe = this.props.store.subscribe(this.executeQuery);
   }
 
