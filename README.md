@@ -9,7 +9,8 @@ Here's the premise:
 
 Doesn't that sound like a good fit? The answer is: yeah, kind of?
 
-Examples:
+## Examples
+
 * [Counter](/example/components/Counter.js)
 * [Todo List](/example/components/TodoList.js)
 * [Blog](/example/components/Blog.js)
