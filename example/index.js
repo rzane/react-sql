@@ -8,9 +8,8 @@ import "./index.css";
 
 const store = createStore();
 
-// const storage = "INDEXEDDB";
-// const storage = "localStorage";
-const storage = null;
+const storage = "localStorage";
+// const storage = null;
 
 const schema = `
 CREATE TABLE IF NOT EXISTS example.counter (

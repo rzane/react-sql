@@ -1,7 +1,6 @@
+import './monkeys'
 import alasql from "alasql";
 import { EventEmitter } from "events";
-
-const isFunction = value => typeof value === "function";
 
 const createStore = () => {
   const events = new EventEmitter();
