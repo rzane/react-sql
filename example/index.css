@@ -1,5 +1,33 @@
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0;
+}
+
+nav {
+  background-color: #eee;
+  padding: 20px 0;
+}
+
+main {
+  padding-top: 3rem;
+}
+
+form {
+  width: 100%;
+}
+
+input[type="text"] {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  font-size: 16px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+a + a,
+button + button {
+  margin-left: 20px;
 }
 
 button {
@@ -22,32 +50,14 @@ button.negative {
   background-color: #dc3545;
 }
 
-.Counter {
-  padding: 5rem;
-  text-align: center;
-}
-
-.Counter button {
-  margin: 5px;
-}
-
-.TodoList {
-  padding: 5rem;
+.container {
   width: 80%;
   margin: 0 auto;
 }
 
-.TodoList form {
-  width: 100%;
-}
-
-.TodoList form input[type="text"] {
-  display: block;
-  width: 100%;
-  padding: 13px;
-  font-size: 16px;
-  box-sizing: border-box;
-  margin-bottom: 10px;
+.Counter {
+  padding: 5rem;
+  text-align: center;
 }
 
 .TodoList ul {

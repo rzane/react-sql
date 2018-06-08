@@ -1,15 +1,16 @@
 import "babel-polyfill";
+import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom";
+import { Router, Link } from "@reach/router";
 import { createStore, Provider } from "../src";
 import Counter from "./components/Counter";
 import TodoList from "./components/TodoList";
-import "./index.css";
 
 const store = createStore();
 
-const storage = "localStorage";
-// const storage = null;
+const storage = null;
+// const storage = "localStorage";
 
 const schema = `
 CREATE TABLE IF NOT EXISTS example.counter (
@@ -53,11 +54,26 @@ const seed = async () => {
   }
 };
 
+const Home = () => (
+  <h1>Choose a demo</h1>
+)
+
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <Counter />
-      <TodoList />
+      <nav>
+        <div className="container">
+          <Link to="counter">Counter</Link>
+          <Link to="todos">Todo List</Link>
+        </div>
+      </nav>
+
+      <main className="container">
+        <Router>
+          <Counter path="counter" />
+          <TodoList path="todos" />
+        </Router>
+      </main>
     </Provider>,
     document.getElementById("root")
   );
