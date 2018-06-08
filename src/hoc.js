@@ -1,6 +1,7 @@
 import React from 'react';
 import Query from './Query';
 import Mutation from './Mutation';
+import Actions from './Actions';
 
 const call = (maybeFn, ...args) => {
   if (typeof maybeFn === "function") {
@@ -27,6 +28,12 @@ const wrap = (SqlComponent, operation) => (sql, {
 
 export const query = wrap(Query, "query");
 export const mutation = wrap(Mutation, "mutate");
+
+export const withActions = actions => WrappedComponent => props => (
+  <Actions {...actions}>
+    {handlers => <WrappedComponent {...props} {...handlers} />}
+  </Actions>
+);
 
 export const compose = (...funcs) => {
   if (funcs.length === 0) {
