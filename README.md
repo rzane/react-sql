@@ -9,11 +9,16 @@ Here's the premise:
 
 Doesn't that sound like a good fit? The answer is: yeah, kind of?
 
-### How does it work?
+Examples:
+* [Counter](/example/components/Counter.js)
+* [Todo List](/example/components/TodoList.js)
+* [Blog](/example/components/Blog.js)
+
+## How does it work?
 
 Under the hood it uses [AlaSQL](https://github.com/agershun/alasql), which is an incredibly cool in-memory SQL database.
 
-### Really, you don't think this is cool?
+## Really, you don't think this is cool?
 
 ```jsx
 const Counter = () => (
