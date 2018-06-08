@@ -5,7 +5,7 @@ const LS = alasql.engines.LOCALSTORAGE;
 /**
  * Fix primary key generation
  */
-alasql.engines.LOCALSTORAGE.intoTable = function(databaseid, tableid, value, _columns, cb) {
+LS.intoTable = function(databaseid, tableid, value, _columns, cb) {
   var res = value.length;
   var tb = LS.restoreTable(databaseid, tableid);
   for (var columnid in tb.identities) {

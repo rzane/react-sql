@@ -1,4 +1,3 @@
-import "babel-polyfill";
 import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -6,11 +5,12 @@ import { Router, Link } from "@reach/router";
 import { createStore, Provider } from "../src";
 import Counter from "./components/Counter";
 import TodoList from "./components/TodoList";
+import Blog from "./components/Blog";
 
 const store = createStore();
 
-const storage = null;
-// const storage = "localStorage";
+// const storage = null;
+const storage = "localStorage";
 
 const schema = `
 CREATE TABLE IF NOT EXISTS example.counter (
@@ -21,6 +21,18 @@ CREATE TABLE IF NOT EXISTS example.todos (
   id INT NON NULL PRIMARY KEY AUTO_INCREMENT,
   task STRING NON NULL,
   done BOOLEAN DEFAULT false
+);
+
+CREATE TABLE IF NOT EXISTS example.posts (
+  id INT NON NULL PRIMARY KEY,
+  body STRING NON NULL,
+  title STRING NON NULL,
+  userId INT NON NULL
+);
+
+CREATE TABLE IF NOT EXISTS example.users (
+  id INT NON NULL PRIMARY KEY,
+  name STRING NON NULL
 );
 `;
 
@@ -65,6 +77,7 @@ const render = () => {
         <div className="container">
           <Link to="counter">Counter</Link>
           <Link to="todos">Todo List</Link>
+          <Link to="blog">Blog</Link>
         </div>
       </nav>
 
@@ -72,6 +85,7 @@ const render = () => {
         <Router>
           <Counter path="counter" />
           <TodoList path="todos" />
+          <Blog path="blog" />
         </Router>
       </main>
     </Provider>,

@@ -78,3 +78,18 @@ button.negative {
 .TodoList li a {
   float: right;
 }
+
+.Blog ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.Blog li {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.Blog h4 {
+  margin: 0;
+}

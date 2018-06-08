@@ -5,7 +5,7 @@ import { connect } from "./Provider";
 class Query extends Component {
   static propTypes = {
     sql: PropTypes.string.isRequired,
-    initial: PropTypes.any.isRequired,
+    initial: PropTypes.any,
     params: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired
   };
 
