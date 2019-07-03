@@ -1,5 +1,7 @@
 # React SQL
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/rzane/react-sql.svg)](https://greenkeeper.io/)
+
 This is a __really good__ *bad* idea.
 
 Here's the premise:
